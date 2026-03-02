@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Money Changer</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+    }
+
+    .container{
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(15px);
+        padding:40px;
+        border-radius:20px;
+        width:400px;
+        text-align:center;
+        color:white;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    h1{
+        font-weight:600;
+        margin-bottom:20px;
+    }
+
+    input, select{
+        width:100%;
+        padding:12px;
+        margin:10px 0;
+        border-radius:10px;
+        border:none;
+        outline:none;
+        font-size:14px;
+    }
+
+    button{
+        width:100%;
+        padding:12px;
+        border:none;
+        border-radius:10px;
+        background:#ffffff;
+        color:#2a5298;
+        font-weight:600;
+        cursor:pointer;
+        transition:0.3s;
+    }
+
+    button:hover{
+        background:#e0e0e0;
+    }
+
+    .result{
+        margin-top:15px;
+        font-size:18px;
+        font-weight:600;
+    }
+
+    .footer{
+        margin-top:20px;
+        font-size:12px;
+        opacity:0.8;
+    }
+
+    .footer a{
+        color:#ffffff;
+        text-decoration:underline;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>💱 Money Changer</h1>
+
+    <input type="number" id="amount" placeholder="Enter Amount">
+
+    <select id="fromCurrency"></select>
+    <select id="toCurrency"></select>
+
+    <button onclick="convertCurrency()">Convert</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="footer">
+        By Den Vortex. <br>
+        For more Information, please click this link 
+        <a href="https://www.facebook.com/share/1DNSfBEhzF/" target="_blank">
+            (facebook)
+        </a>
+    </div>
+</div>
+
+<script>
+const currencies = {
+    "USD (United States)": 1,
+    "PHP (Philippines)": 56,
+    "EUR (European Union)": 0.92,
+    "JPY (Japan)": 150,
+    "GBP (United Kingdom)": 0.78,
+    "AUD (Australia)": 1.52,
+    "CAD (Canada)": 1.34,
+    "SGD (Singapore)": 1.35,
+    "KRW (South Korea)": 1330,
+    "CNY (China)": 7.1,
+    "INR (India)": 83,
+    "MYR (Malaysia)": 4.7,
+    "THB (Thailand)": 35,
+    "IDR (Indonesia)": 15600,
+    "AED (UAE)": 3.67
+};
+
+const fromSelect = document.getElementById("fromCurrency");
+const toSelect = document.getElementById("toCurrency");
+
+for (let currency in currencies) {
+    let option1 = document.createElement("option");
+    let option2 = document.createElement("option");
+    option1.text = currency;
+    option2.text = currency;
+    fromSelect.add(option1);
+    toSelect.add(option2);
+}
+
+function convertCurrency(){
+    const amount = document.getElementById("amount").value;
+    const from = fromSelect.value;
+    const to = toSelect.value;
+
+    if(amount === ""){
+        alert("Please enter amount");
+        return;
+    }
+
+    let usdAmount = amount / currencies[from];
+    let converted = usdAmount * currencies[to];
+
+    document.getElementById("result").innerText =
+        amount + " " + from.split(" ")[0] + 
+        " = " + converted.toFixed(2) + 
+        " " + to.split(" ")[0];
+}
+</script>
+
+</body>
+</html>
